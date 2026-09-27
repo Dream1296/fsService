@@ -1,0 +1,524 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model MyFriend {
+  id       Int      @id @default(autoincrement())
+  node     String   @db.VarChar(11)
+  name     String   @db.Char(255)
+  notes    String   @db.Text
+  birthday DateTime @db.Date
+  phone    BigInt
+  qq       BigInt
+  wechat   String   @db.Text
+}
+
+model bookjd {
+  bookId String @id @db.VarChar(20)
+  jdID   Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt {
+  dt_id          String   @id @db.VarChar(5)
+  user           String   @db.VarChar(10)
+  text           String   @db.Text
+  img_show_num   Int
+  img_all_num    Int
+  video_show_num Int
+  video_num      Int
+  date           DateTime @db.DateTime(0)
+  pin_order      Int      @default(0)
+  bg_style       Int      @default(0)
+  loa            Int      @default(0)
+  shows          Boolean  @default(true)
+  save           Boolean  @default(false)
+  date_real      String   @db.VarChar(30)
+
+  @@index([loa], map: "loa")
+  @@index([shows], map: "shows")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_Ink_screen {
+  id    Int   @id @default(autoincrement())
+  black Bytes @db.Blob
+  red   Bytes @db.Blob
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_chat {
+  id      Int    @id @default(autoincrement())
+  dt_id   String @db.VarChar(5)
+  root_id String @db.VarChar(60)
+  name    String @db.VarChar(50)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_com {
+  type       String @id @db.VarChar(30)
+  id         String @db.VarChar(20)
+  touxian    String @db.VarChar(20)
+  name       String @db.VarChar(200)
+  show_index Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_comments {
+  id          Int      @id @default(autoincrement())
+  date        DateTime @db.DateTime(0)
+  content     String   @db.Text
+  img_all_num Int?     @default(0)
+  dt_id       String   @db.VarChar(5)
+  user        String   @db.VarChar(200)
+  shoes       Int?     @default(1)
+  loa         Int
+}
+
+model dt_comments_img {
+  id         Int     @id @default(autoincrement())
+  comment_id Int
+  img_index  Int
+  img_src    String  @db.VarChar(100)
+  img_name   String  @db.VarChar(200)
+  text       String? @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_date {
+  id    Int       @id @default(autoincrement())
+  date  DateTime? @db.DateTime(0)
+  dt_id String    @default("-1") @db.VarChar(5)
+  text  String    @default("null") @db.VarChar(2000)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_file {
+  id        Int    @id @default(autoincrement())
+  dt_id     String @db.VarChar(5)
+  name      String @db.VarChar(200)
+  file_src  String @db.VarChar(600)
+  file_name String @db.VarChar(600)
+  loa       Int
+  has       String @default("-1") @db.VarChar(36)
+  shows     Int    @default(1)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_group {
+  id   Int    @id
+  name String @db.VarChar(100)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_group_map {
+  id       Int    @id @default(autoincrement())
+  group_id Int
+  user     String @db.VarChar(20)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_id {
+  id      Int    @id @default(autoincrement())
+  db_name String @db.VarChar(30)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_img {
+  id              Int     @id @default(autoincrement())
+  dt_id           String  @db.VarChar(5)
+  img_index       Int
+  img_src         String? @db.VarChar(200)
+  img_name        String  @db.VarChar(300)
+  show_proportion String  @db.VarChar(10)
+  md5             String  @db.VarChar(32)
+  size            Int
+
+  @@index([dt_id, img_index], map: "dt_id")
+  @@index([md5], map: "md5")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_index {
+  id      Int     @id @default(autoincrement())
+  keyword String  @db.VarChar(500)
+  dt_id   String  @db.VarChar(5)
+  isAi    Boolean @default(false)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_index_arr {
+  user String @db.VarChar(20)
+  idx  Int
+  name String @db.VarChar(50)
+
+  @@id([user, idx])
+}
+
+model dt_longVideo {
+  id    Int    @id @default(autoincrement())
+  dt_id Int
+  name  String @db.VarChar(300)
+  src   String @db.VarChar(300)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_map {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(200)
+  content String @db.VarChar(200)
+  dt_id   String @db.VarChar(5)
+  E       Float
+  N       Float
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_mood {
+  id   Int      @id @default(autoincrement())
+  user String   @db.VarChar(50)
+  date DateTime @db.DateTime(0)
+  mood String   @db.VarChar(200)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_name {
+  id      Int    @id @default(autoincrement())
+  user    String @db.VarChar(10)
+  name    String @db.VarChar(20)
+  touxian String @db.VarChar(50)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_share {
+  id   Int      @id @default(autoincrement())
+  k    String   @db.VarChar(5)
+  user String   @db.VarChar(50)
+  date DateTime @db.DateTime(0)
+  dtid String   @db.VarChar(10)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_text {
+  id    Int    @id @default(autoincrement())
+  dt_id String @db.VarChar(5)
+  title String @db.VarChar(500)
+  data  String @db.LongText
+  type  String @db.VarChar(30)
+  user  String @db.VarChar(30)
+  loa   Int
+  notes String @db.VarChar(5000)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_user {
+  id       String @id @db.VarChar(50)
+  name     String @db.VarChar(100)
+  user_img String @db.VarChar(100)
+  passwd   String @db.VarChar(32)
+  bg_img   String @db.VarChar(20)
+}
+
+model dt_user_blacklist {
+  user         String @db.VarChar(20)
+  loa          Int
+  blocked_user String @db.VarChar(20)
+
+  @@id([user, loa, blocked_user])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_video {
+  id              Int    @id @default(autoincrement())
+  dt_id           String @db.VarChar(5)
+  video_index     Int
+  video_src       String @db.VarChar(50)
+  video_name      String @db.VarChar(300)
+  show_proportion String @db.VarChar(10)
+  md5             String @db.VarChar(32)
+  size            Int    @default(0)
+
+  @@index([md5], map: "md5")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model dt_video_temp {
+  md5       String @id @db.VarChar(32)
+  new_md5   String @db.VarChar(32)
+  file_name String @db.VarChar(300)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model emojiList {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(100)
+}
+
+model gps {
+  id    Int    @id @default(autoincrement())
+  user  String @db.VarChar(10)
+  jindu Float
+  weidu Float
+
+  @@index([weidu], map: "weidu")
+  @@index([weidu], map: "weidu_2")
+  @@index([weidu], map: "weidu_3")
+  @@index([weidu], map: "weidu_4")
+  @@index([weidu], map: "weidu_5")
+  @@index([weidu], map: "weidu_6")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model keep_badminton {
+  id                Int      @id @default(autoincrement())
+  dt_id             String   @db.VarChar(5)
+  type              String   @db.VarChar(50)
+  date              String   @db.VarChar(50)
+  xiaohao           Int
+  xinlv             Int
+  xinlv_min         Int
+  xinlv_max         Int
+  time_m            DateTime @db.Time(0)
+  time_all          DateTime @db.Time(0)
+  fuzai             Int
+  xunlanxiaoguo_you Decimal  @db.Decimal(3, 1)
+  xunlanxiaoguo_wu  Decimal  @db.Decimal(3, 1)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model keep_heart {
+  id            Int @id @default(autoincrement())
+  xinlv_pingjun Int
+  xinlv_max     Int
+  xinlv_min     Int
+  xin_a         Int
+  xin_b         Int
+  xin_c         Int
+  xin_d         Int
+  xin_e         Int
+  xin_f         Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model keep_run {
+  id                Int       @id @default(autoincrement())
+  dt_id             String    @db.VarChar(5)
+  type              String    @db.VarChar(20)
+  date              String?   @db.VarChar(50)
+  location          String?   @db.VarChar(100)
+  juli              Decimal?  @db.Decimal(5, 2)
+  time_m            DateTime? @db.Time(0)
+  peishu            DateTime? @db.Time(0)
+  peishu_max        DateTime? @db.Time(0)
+  xiaohao           Int?
+  time_all          DateTime? @db.Time(0)
+  fuzai             Int?
+  xinlv             Int?
+  xinlv_max         Int?
+  xinlv_min         Int?
+  buping            Int?
+  gonlv             Int?
+  bufu              Decimal?  @db.Decimal(4, 2)
+  xunlanxiaoguo_you Decimal?  @db.Decimal(3, 1)
+  xunlanxiaoguo_wu  Decimal?  @db.Decimal(3, 1)
+  cut               Int?
+  ocr_text          String    @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model map {
+  id        Int    @id @default(autoincrement())
+  name      String @db.Char(255)
+  notes     String @db.Text
+  gps       String @db.Text
+  baidulink String @db.Char(255)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model music {
+  id     Int    @id @default(autoincrement())
+  url    String @db.VarChar(150)
+  size   Int
+  sheet  Int
+  name   String @db.VarChar(100)
+  singer String @db.VarChar(150)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model musicClass {
+  id        Int    @id @default(autoincrement())
+  Classname String @db.VarChar(50)
+  ClassInt  Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model need {
+  id    Int      @id @default(autoincrement())
+  text  String   @db.Text
+  date  DateTime @db.DateTime(0)
+  shows Int      @default(1)
+  done  Int      @default(0)
+  loa   Int      @default(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model noteClass {
+  id      Int    @id @default(autoincrement())
+  tagName String @db.VarChar(200)
+  tagId   Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model notelog {
+  id      Int      @id @default(autoincrement())
+  date    DateTime @db.DateTime(0)
+  content String   @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model notes {
+  id      Int      @id @default(autoincrement())
+  date    DateTime @db.Date
+  title   String   @db.Text
+  preview String   @db.VarChar(200)
+  imgs    String   @default("0") @db.VarChar(20)
+  content String   @db.LongText
+  classs  Int      @default(0)
+  shows   Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model passwd {
+  id      Int    @id @default(autoincrement())
+  user    String @db.VarChar(50)
+  name    String @db.VarChar(50)
+  passwd  String @db.Text
+  zhiwen  String @db.VarChar(32)
+  zhiwens String @db.VarChar(32)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model passwds {
+  id       Int     @id @default(autoincrement())
+  username String  @db.Char(255)
+  password String  @db.Text
+  note     String? @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model piece0 {
+  id Int @id @default(autoincrement())
+  x1 Int
+  y1 Int
+  x2 Int
+  y2 Int
+}
+
+model piece1 {
+  id Int @id @default(autoincrement())
+  x1 Int
+  y1 Int
+  x2 Int
+  y2 Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model player {
+  id      Int    @id
+  players String @db.Char(1)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model rsa_key {
+  id          Int    @id @default(autoincrement())
+  key_id      Int
+  public_key  String @db.VarChar(5000)
+  private_key String @db.VarChar(5000)
+  note        String @db.VarChar(5000)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model sleep {
+  id                   Int      @id @default(autoincrement())
+  date                 DateTime @db.Date
+  total_sleep_duration Int
+  deep_sleep_duration  Int
+  lightSleepDuration   Int
+  sleepDuration        Int
+  awakeDuration        Int
+  bedtime              Int
+  wakeupTime           Int
+  snoringDuration      Int
+  sleepScore           Int
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model species {
+  id     Int      @id @default(autoincrement())
+  date   DateTime @db.Date
+  type   Int
+  leixin String   @db.VarChar(20)
+  money  Decimal  @db.Decimal(10, 2)
+  notes  String   @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model tree {
+  id    Int    @id
+  data  String @db.VarChar(50)
+  jump  String @default("0") @db.VarChar(20)
+  text  String @db.Text
+  pos   String @default("0") @db.VarChar(20)
+  size  Float  @default(1) @db.Float
+  color String @default("#ec9bad") @db.VarChar(10)
+  next  String @default("0") @db.VarChar(30)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model video_text {
+  id         Int    @id @default(autoincrement())
+  video_id   Int
+  start_time Int
+  end_time   Int
+  content    String @db.VarChar(500)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model webconfig {
+  id      Int    @id @default(autoincrement())
+  user    String @db.VarChar(50)
+  name    String @db.VarChar(50)
+  touxian String @db.VarChar(20)
+  xuanpc  String @db.VarChar(20)
+  xuanapp String @db.VarChar(20)
+  tfipv6  Int
+  tfvideo Int
+}
+
+model word_compare {
+  id     Int    @id @default(autoincrement())
+  text_1 String @db.VarChar(500)
+  text_2 String @db.VarChar(500)
+  score  Float
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model xc {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(100)
+  cla   String  @db.VarChar(100)
+  shows Boolean @default(true)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model xuanx {
+  id   Int    @id
+  url  String @db.VarChar(20)
+  img  String @db.VarChar(20)
+  name String @db.VarChar(20)
+}
